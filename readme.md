@@ -22,7 +22,7 @@ A basic 3D viewer written in Rust for rotating, zooming, and loading `.obj` file
 | **Escape**             | Exit the program        |
 
 ## How It Works
-https://github.com/user-attachments/assets/fd2870c6-b1d4-4905-a9a1-2a650513bad1
+https://github.com/user-attachments/assets/ac892f1e-226b-4b58-ac04-caeccd5660a2
 ### Rotation Matrices
 The 3D point \((x, y, z)\) is rotated using standard rotation matrices:
 
