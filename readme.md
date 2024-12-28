@@ -25,14 +25,18 @@ A basic 3D viewer written in Rust for rotating, zooming, and loading `.obj` file
 The 3D point \((x, y, z)\) is rotated using standard rotation matrices:
 
 - **X-axis Rotation**:
-$$
-x' = x \\
-y' = y \cos\theta - z \sin\theta \\
-z' = y \sin\theta + z \cos\theta
-$$
+```math
+\begin{cases}
+x' = x \
+y' = y \cos\theta - z \sin\theta \
+z' = y \sin\theta + z \cos\theta 
+\end{cases}
+```
 
 - **Perspective Projection**:
-$$
-u = x \cdot \frac{\text{scale}}{z + \text{distance}} + \frac{\text{screen\_width}}{2} \\
+```math
+\begin{cases}
+u = x \cdot \frac{\text{scale}}{z + \text{distance}} + \frac{\text{screen\_width}}{2} \
 v = -y \cdot \frac{\text{scale}}{z + \text{distance}} + \frac{\text{screen\_height}}{2}
-$$
+\end{cases}
+```
