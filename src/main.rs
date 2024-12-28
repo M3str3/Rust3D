@@ -17,8 +17,13 @@ use std::{
 ////////////////////////////////////////////////////////////////////////////////
 // Window parameters and perspective settings
 ////////////////////////////////////////////////////////////////////////////////
+const BLACK: u32 = 0x000000;
+const WHITE: u32 = 0xFFFFFFFF;
+const RED: u32 = 0xFF0000;
+const GREEN: u32 = 0x00FF00;
+const BLUE: u32 = 0x0000FF;
 
-const COLOR: u32 = 0xFFFFFFFF; // White 
+const COLORS: [u32; 5] = [BLACK, WHITE, RED, GREEN, BLUE]; 
 const WIDTH: usize = 1000;
 const HEIGHT: usize = 800;
 const SCALE: f32 = 600.0; // Scaling factor for the 3D model in screen space
@@ -103,6 +108,9 @@ fn load_obj(file_path: &str) -> Result<Model, String> {
 }
 
 fn main() {
+    let mut obj_color: usize = 0;
+    let mut bg_color: usize = 1;
+
     let mut window = match Window::new(
         "M3str3 - Model viewer",
         WIDTH,
@@ -181,7 +189,7 @@ fn main() {
     //////////////////////////////////////////////////////////////////////////////////////////
     while window.is_open() && !window.is_key_down(Key::Escape) {
         // Clear the buffer to black
-        buffer.fill(0x000000);
+        buffer.fill(COLORS[bg_color]);
 
         //////////////////////////////////////////////////////////////////////////////////////
         // Keyboard controls 
@@ -196,6 +204,24 @@ fn main() {
         // Zoom out
         if window.is_key_down(Key::Down) || window.is_key_down(Key::Minus) {
             distance += 0.1;
+        }
+
+        // Change background color
+        if window.is_key_pressed(Key::B, minifb::KeyRepeat::No) {
+            bg_color += 1;
+            if bg_color >= COLORS.len() {
+                bg_color = 0;
+            }
+            println!("Background color: {}", COLORS[bg_color]);
+        }
+
+        // Change object color
+        if window.is_key_pressed(Key::M, minifb::KeyRepeat::No) {
+            obj_color += 1;
+            if obj_color >= COLORS.len() {
+                obj_color = 0;
+            }
+            println!("Object color: {}", COLORS[obj_color]);
         }
 
         // Toggle auto-rotation
@@ -282,7 +308,7 @@ fn main() {
                 transformations::project_perspective(rx1, ry1, rz1, distance, SCALE, WIDTH, HEIGHT),
                 transformations::project_perspective(rx2, ry2, rz2, distance, SCALE, WIDTH, HEIGHT),
             ) {
-                rendering::draw_line(&mut buffer, WIDTH, HEIGHT, start, end, COLOR);
+                rendering::draw_line(&mut buffer, WIDTH, HEIGHT, start, end, COLORS[obj_color]);
             }
         }
         

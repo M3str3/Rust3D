@@ -14,6 +14,8 @@ A basic 3D viewer written in Rust for rotating, zooming, and loading `.obj` file
 |------------------------|-------------------------|
 | **Left Click + Drag**  | Rotate the model        |
 | **Space**              | Toggle auto-rotation    |
+| **B**                  | Change background color |
+| **M**                  | Change object color     |
 | **Up / +**             | Zoom in                 |
 | **Down / -**           | Zoom out                |
 | **L**                  | Load a new `.obj` file  |
